@@ -1,4 +1,5 @@
 import { program } from '@commander-js/extra-typings';
+import { createToyRobotSimulation } from './simulation';
 
 const cli = program
   .name('toy-robot')
@@ -11,10 +12,12 @@ cli.parse();
 
 const options: { file?: string; interactive?: boolean } = cli.opts();
 
+const simulation = createToyRobotSimulation();
+
 if (options.file) {
-  console.log(`read instructions from: ${options.file}`);
+  simulation.runFromFile(options.file);
 } else if (options.interactive) {
-  console.log('read instructions from console.');
+  simulation.runInteractive();
 } else {
   cli.help();
 }

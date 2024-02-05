@@ -2,9 +2,17 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "dev",
+      "name": "run-file",
       "request": "launch",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeArgs": ["run", "toy-robot", "--", "-f", "/workspaces/toyrobot-ts/test/data/commands3.txt"],
+      "runtimeExecutable": "npm",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
+    },
+    {
+      "name": "run-interactive",
+      "request": "launch",
+      "runtimeArgs": ["run", "toy-robot", "--", "-i"],
       "runtimeExecutable": "npm",
       "skipFiles": ["<node_internals>/**"],
       "type": "node"

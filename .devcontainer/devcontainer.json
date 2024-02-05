@@ -12,7 +12,8 @@
         "pmneo.tsimporter",
         "oderwat.indent-rainbow",
         "EditorConfig.EditorConfig",
-        "vivaxy.vscode-conventional-commits"
+        "vivaxy.vscode-conventional-commits",
+        "mattpocock.ts-error-translator"
       ]
     }
   },

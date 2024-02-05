@@ -6,5 +6,12 @@
   "editor.formatOnSaveMode": "file",
   "files.autoSave": "onFocusChange",
   "vs-code-prettier-eslint.prettierLast": true,
-  "javascript.autoClosingTags": false
+  "javascript.autoClosingTags": false,
+  "eslint.nodePath": "./node_modules/eslint/bin/eslint.js",
+  "eslint.quiet": true,
+  "eslint.run": "onSave",
+  "eslint.runtime": "/usr/local/bin/node",
+  "eslint.workingDirectories": [
+    "/workspaces/toyrobot-ts"
+  ]
 }

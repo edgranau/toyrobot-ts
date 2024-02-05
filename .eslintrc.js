@@ -23,7 +23,7 @@ module.exports = {
   root: true,
   rules: {
     'brace-style': 'error',
-    'eqeqeq': 'error',
+    eqeqeq: 'error',
     'import/default': 'error',
     'import/export': 'error',
     'import/first': 'error',

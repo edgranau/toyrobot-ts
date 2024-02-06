@@ -1,4 +1,12 @@
-import { isOnTable, leftCommand, moveCommand, placeCommand, reportCommand, rightCommand, runCommand } from './runner';
+import {
+  isOnTable,
+  leftCommand,
+  moveCommand,
+  placeCommand,
+  reportCommand,
+  rightCommand,
+  runCommand,
+} from './runner';
 import { Command, Direction } from './types';
 
 describe('runCommand', () => {
@@ -7,7 +15,7 @@ describe('runCommand', () => {
 
   beforeEach(() => {
     robot = {
-      position: { x: 0, y: 0, direction: Direction.NORTH }
+      position: { x: 0, y: 0, direction: Direction.NORTH },
     };
     table = { dimensions: { x: 5, y: 5 } };
   });
@@ -35,7 +43,9 @@ describe('runCommand', () => {
     const command = Command.REPORT;
     const consoleLogSpy = jest.spyOn(console, 'log');
     runCommand(command, undefined, robot, table);
-    expect(consoleLogSpy).toHaveBeenCalledWith(`Robot is at: ${JSON.stringify(robot.position)}`);
+    expect(consoleLogSpy).toHaveBeenCalledWith(
+      `Robot is at: ${JSON.stringify(robot.position)}`
+    );
     consoleLogSpy.mockRestore();
   });
 
@@ -52,7 +62,7 @@ describe('leftCommand', () => {
 
   beforeEach(() => {
     robot = {
-      position: { x: 0, y: 0, direction: Direction.NORTH }
+      position: { x: 0, y: 0, direction: Direction.NORTH },
     };
     table = { dimensions: { x: 5, y: 5 } };
   });
@@ -75,7 +85,7 @@ describe('moveCommand', () => {
 
   beforeEach(() => {
     robot = {
-      position: { x: 0, y: 0, direction: Direction.NORTH }
+      position: { x: 0, y: 0, direction: Direction.NORTH },
     };
     table = { dimensions: { x: 5, y: 5 } };
   });
@@ -98,7 +108,7 @@ describe('placeCommand', () => {
 
   beforeEach(() => {
     robot = {
-      position: { x: 0, y: 0, direction: Direction.NORTH }
+      position: { x: 0, y: 0, direction: Direction.NORTH },
     };
     table = { dimensions: { x: 5, y: 5 } };
   });
@@ -122,7 +132,7 @@ describe('reportCommand', () => {
 
   beforeEach(() => {
     robot = {
-      position: { x: 0, y: 0, direction: Direction.NORTH }
+      position: { x: 0, y: 0, direction: Direction.NORTH },
     };
     table = { dimensions: { x: 5, y: 5 } };
   });
@@ -130,7 +140,9 @@ describe('reportCommand', () => {
   test('should log the robot position', () => {
     const consoleLogSpy = jest.spyOn(console, 'log');
     reportCommand(robot, table);
-    expect(consoleLogSpy).toHaveBeenCalledWith(`Robot is at: ${JSON.stringify(robot.position)}`);
+    expect(consoleLogSpy).toHaveBeenCalledWith(
+      `Robot is at: ${JSON.stringify(robot.position)}`
+    );
     consoleLogSpy.mockRestore();
   });
 
@@ -149,7 +161,7 @@ describe('rightCommand', () => {
 
   beforeEach(() => {
     robot = {
-      position: { x: 0, y: 0, direction: Direction.NORTH }
+      position: { x: 0, y: 0, direction: Direction.NORTH },
     };
     table = { dimensions: { x: 5, y: 5 } };
   });

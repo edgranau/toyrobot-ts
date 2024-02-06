@@ -34,12 +34,14 @@ const left = {
   EAST: Direction.NORTH,
   SOUTH: Direction.EAST,
   WEST: Direction.SOUTH,
-  undefined: undefined
+  undefined: undefined,
 };
 export const leftCommand = (robot: Robot, table: Table): void => {
   console.debug(`LEFT: ${JSON.stringify(robot.position)}`);
   if (isOnTable(robot.position, table)) {
-    const newPosition = Object.assign({}, robot.position, { direction: left[`${robot.position.direction}`]});
+    const newPosition = Object.assign({}, robot.position, {
+      direction: left[`${robot.position.direction}`],
+    });
     if (isOnTable(newPosition, table)) {
       robot.position = newPosition;
     }
@@ -49,22 +51,25 @@ export const leftCommand = (robot: Robot, table: Table): void => {
 };
 
 const step = {
-  NORTH: [0,1],
-  EAST: [1,0],
-  SOUTH: [0,-1],
-  WEST: [-1,0],
-  undefined: [0,0]
+  NORTH: [0, 1],
+  EAST: [1, 0],
+  SOUTH: [0, -1],
+  WEST: [-1, 0],
+  undefined: [0, 0],
 };
 export const moveCommand = (robot: Robot, table: Table): void => {
   console.debug(`MOVE: ${JSON.stringify(robot.position)}`);
   if (isOnTable(robot.position, table)) {
-    const positionAndStep = [[robot.position.x, robot.position.y], step[`${robot.position.direction}`]];
+    const positionAndStep = [
+      [robot.position.x, robot.position.y],
+      step[`${robot.position.direction}`],
+    ];
     const newPositionMatrix = add(positionAndStep);
     const newPosition = {
       x: newPositionMatrix[0],
       y: newPositionMatrix[1],
-      direction: robot.position.direction
-    }
+      direction: robot.position.direction,
+    };
     if (isOnTable(newPosition, table)) {
       robot.position = newPosition;
     }
@@ -95,12 +100,14 @@ const right = {
   EAST: Direction.SOUTH,
   SOUTH: Direction.WEST,
   WEST: Direction.NORTH,
-  undefined: undefined
+  undefined: undefined,
 };
 export const rightCommand = (robot: Robot, table: Table): void => {
   console.debug(`RIGHT: ${JSON.stringify(robot.position)}`);
   if (isOnTable(robot.position, table)) {
-    const newPosition = Object.assign({}, robot.position, { direction: right[`${robot.position.direction}`]});
+    const newPosition = Object.assign({}, robot.position, {
+      direction: right[`${robot.position.direction}`],
+    });
     if (isOnTable(newPosition, table)) {
       robot.position = newPosition;
     }
@@ -110,10 +117,13 @@ export const rightCommand = (robot: Robot, table: Table): void => {
 
 export const isOnTable = (position: Vector, table: Table): boolean => {
   return (
-    position.x >= 0 && position.x < table.dimensions.x &&
-    position.y >= 0 && position.y < table.dimensions.y &&
+    position.x >= 0 &&
+    position.x < table.dimensions.x &&
+    position.y >= 0 &&
+    position.y < table.dimensions.y &&
     position.direction !== undefined
   );
 };
 
-const add = (matrix: number[][]) => matrix[0].map((num, idx) => num + matrix[1][idx]);
+const add = (matrix: number[][]) =>
+  matrix[0].map((num, idx) => num + matrix[1][idx]);

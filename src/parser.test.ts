@@ -30,10 +30,14 @@ describe('parseInput', () => {
 
     parseInput(flags, commandRunMock);
 
-    stdin.send("PLACE 1,2,NORTH");
+    stdin.send('PLACE 1,2,NORTH');
 
     rlMock.on.mock.calls[0][1]('PLACE 1,2,NORTH');
-    expect(commandRunMock).toHaveBeenCalledWith(Command.PLACE, { x: 1, y: 2, direction: Direction.NORTH });
+    expect(commandRunMock).toHaveBeenCalledWith(Command.PLACE, {
+      x: 1,
+      y: 2,
+      direction: Direction.NORTH,
+    });
 
     rlMock.on.mock.calls[1][1]('MOVE');
     expect(commandRunMock).toHaveBeenCalledWith(Command.MOVE);
@@ -48,7 +52,9 @@ describe('parseInput', () => {
     expect(process.exit).toHaveBeenCalledWith(0);
 
     rlMock.on.mock.calls[4][1](new Error('Test error'));
-    expect(console.error).toHaveBeenCalledWith('Error reading the file: Test error');
+    expect(console.error).toHaveBeenCalledWith(
+      'Error reading the file: Test error'
+    );
     expect(process.exit).toHaveBeenCalledWith(0);
   });
 
@@ -69,14 +75,20 @@ describe('parseInput', () => {
     expect(rlMock.on.mock.calls[2][0]).toBe('error');
 
     rlMock.on.mock.calls[0][1]('PLACE 1,2,NORTH');
-    expect(commandRunMock).toHaveBeenCalledWith(Command.PLACE, { x: 1, y: 2, direction: Direction.NORTH });
+    expect(commandRunMock).toHaveBeenCalledWith(Command.PLACE, {
+      x: 1,
+      y: 2,
+      direction: Direction.NORTH,
+    });
 
     rlMock.on.mock.calls[1][1]();
     expect(console.log).toHaveBeenCalledWith('Have a great day!');
     expect(process.exit).toHaveBeenCalledWith(0);
 
     rlMock.on.mock.calls[2][1](new Error('Test error'));
-    expect(console.error).toHaveBeenCalledWith('Error reading the file: Test error');
+    expect(console.error).toHaveBeenCalledWith(
+      'Error reading the file: Test error'
+    );
     expect(process.exit).toHaveBeenCalledWith(0);
   });
 });

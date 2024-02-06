@@ -1,7 +1,7 @@
 import { createReadStream } from 'fs';
 import path from 'path';
 import { createInterface } from 'readline';
-import { Command , Direction } from './types';
+import { Command, Direction } from './types';
 import { isValidVector } from './util';
 import type { Vector } from './types';
 import type { ReadStream } from 'fs';
@@ -11,12 +11,14 @@ interface parseInputFlags {
   file?: string;
 }
 
-export const getReadStream =(flags: parseInputFlags): ReadStream | typeof process.stdin => {
+export const getReadStream = (
+  flags: parseInputFlags
+): ReadStream | typeof process.stdin => {
   const { file = '', interactive = false } = flags;
   return interactive
-      ? process.stdin
-      : createReadStream(path.resolve(__dirname, file));
-}
+    ? process.stdin
+    : createReadStream(path.resolve(__dirname, file));
+};
 
 export const parseInput = (
   flags: parseInputFlags,
@@ -28,7 +30,6 @@ export const parseInput = (
     output: process.stdout,
     prompt: 'toy-robot> ',
     crlfDelay: Infinity,
-
   });
 
   if (interactive) {
@@ -55,8 +56,8 @@ export const parseInput = (
   });
 
   rl.on('error', (err) => {
-      console.error(`Error reading the file: ${err.message}`);
-      process.exit(0);
+    console.error(`Error reading the file: ${err.message}`);
+    process.exit(0);
   });
 
   if (interactive) {
@@ -79,7 +80,7 @@ export const parseCommand = (line: string): ParsedCommand | undefined => {
     if (parsedCommand.command === Command.PLACE && commandAndArgs[1]) {
       parsedCommand.args = parseVector(commandAndArgs[1]);
     }
-    if(!parsedCommand.command) return undefined;
+    if (!parsedCommand.command) return undefined;
   } catch (error) {
     return undefined;
   }

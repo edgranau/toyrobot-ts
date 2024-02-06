@@ -26,7 +26,10 @@ describe('createToyRobotSimulation', () => {
   test('should call parseInput with interactive flag when runInteractive is called', () => {
     simulation.runInteractive();
 
-    expect(parseInput).toHaveBeenCalledWith({ interactive: true }, simulation.commandRun);
+    expect(parseInput).toHaveBeenCalledWith(
+      { interactive: true },
+      simulation.commandRun
+    );
   });
 
   test('should call parseInput with file flag and provided file name when runFromFile is called', () => {
@@ -42,6 +45,11 @@ describe('createToyRobotSimulation', () => {
 
     simulation.commandRun(command, args);
 
-    expect(runCommand).toHaveBeenCalledWith(command, args, simulation.robot, simulation.table);
+    expect(runCommand).toHaveBeenCalledWith(
+      command,
+      args,
+      simulation.robot,
+      simulation.table
+    );
   });
 });

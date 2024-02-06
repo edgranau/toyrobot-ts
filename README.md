@@ -114,3 +114,113 @@ Basically treat the coding test as if it's a larger problem, a little bit of ove
 - Is the code easy to read/understand/extend
 - Would I be happy to have code of a similar standard in production
 - Would I be happy to inherit/modify/extend/maintain code of a similar standard
+
+## Solution
+
+The solution is a CLI application that offers the option to:
+
+- Run in interactive mode (`toy-robot -i`), where you can pass the commands one by one via `stdin`, or
+- Read the instructions from a file (`toy-robot -f <file>`)
+  And then executes any valid commands received until it gets a `<eof>` or `<sigint>`.
+
+```shell
+node ➜ /workspaces/toyrobot-ts (main) $ tree src -I *.test.ts
+src
+├── index.ts      # Entry point to the cli application.
+├── parser.ts     # Parses input (`file` or `stdin`) and converts it to a valid command, and parameter.
+├── runner.ts     # Runs commands and updates the robot state accordingly
+├── simulation.ts # Defines the initial state (robot position, table size) and available execution modes (file, interactive)
+├── types.ts      # Type used across the application
+└── util.ts       # Validation and data manipulation utilities
+```
+
+### How-To
+
+## Set It Up
+
+This repo uses the [Node (v20) and Typescript (v5)](https://github.com/devcontainers/templates/tree/main/src/typescript-node) [Dev Containers](https://containers.dev/) template.
+
+If you use VS-Code or IntelliJ Idea, you can use their respective plug-in to run the project inside a container. You will also need Docker installed and runing on your machine.
+
+```shell
+node ➜ /workspaces/toyrobot-ts (main) $ npm install
+
+up to date, audited 545 packages in 681ms
+
+135 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+node ➜ /workspaces/toyrobot-ts (main) $
+```
+
+## Build / Run It
+
+```shell
+# Compile
+npm run build
+
+# Run
+npm run toy-robot # no argument -> display help
+
+node ➜ /workspaces/toyrobot-ts (main) $ npm run toy-robot
+
+> toyrobot-ts@1.0.0 toy-robot
+> ts-node src/index.ts
+
+Usage: toy-robot [options]
+
+TS implementation of the Toy Robot challenge.
+
+Options:
+  -V, --version       output the version number
+  -f, --file <value>  Read instructions from file.
+  -i, --interactive   Read instructions from console.
+  -h, --help          display help for command
+
+```
+
+[**Note**](https://github.com/tj/commander.js?tab=readme-ov-file#npm-run-script)
+
+> npm run-script
+>
+> By default, when you call your program using run-script, `npm` will parse any options on the command-line and they will not reach your program. Use `--` to stop the npm option parsing and pass through all the arguments.
+>
+> The synopsis for [npm run-script](https://docs.npmjs.com/cli/v9/commands/npm-run-script) explicitly shows the `--` for this reason
+
+```shell
+node ➜ /workspaces/toyrobot-ts (main) $ npm run toy-robot -- -i
+
+> toyrobot-ts@1.0.0 toy-robot
+> ts-node src/index.ts -i
+
+toy-robot> # Use Ctrl+C or Ctrl+D to exit.
+```
+
+## Test It
+
+```shell
+node ➜ /workspaces/toyrobot-ts (main) $ npm test
+
+.
+.
+.
+
+---------------|---------|----------|---------|---------|--------------------
+File           | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+---------------|---------|----------|---------|---------|--------------------
+All files      |   82.01 |    78.04 |   78.26 |   79.67 |
+ parser.ts     |      50 |       40 |   28.57 |   44.44 | 17-18,27-64,85,100
+ runner.ts     |     100 |      100 |     100 |     100 |
+ simulation.ts |     100 |      100 |     100 |     100 |
+ types.ts      |     100 |      100 |     100 |     100 |
+ util.ts       |     100 |      100 |     100 |     100 |
+---------------|---------|----------|---------|---------|--------------------
+Test Suites: 3 passed, 3 total
+Tests:       2 skipped, 25 passed, 27 total
+Snapshots:   0 total
+Time:        1.931 s, estimated 4 s
+Ran all test suites.
+
+node ➜ /workspaces/toyrobot-ts (main) $
+```

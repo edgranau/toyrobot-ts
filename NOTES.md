@@ -32,5 +32,5 @@
 
 - [x] direction: enum { north, south, east, west }
 
-- [ ] tests
-- [ ] documentation
+- [x] tests
+- [x] documentation

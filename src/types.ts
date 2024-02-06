@@ -31,6 +31,8 @@ export enum Command {
 }
 
 export interface Simulation {
+  robot: Robot;
+  table: Table;
   commandRun(command: Command, args?: Vector): void;
   runInteractive(): void;
   runFromFile(file: string): void;

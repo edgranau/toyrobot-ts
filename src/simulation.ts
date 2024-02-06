@@ -17,6 +17,8 @@ export const createToyRobotSimulation = (): Simulation => {
     runCommand(command, args, robot, table);
 
   return {
+    robot,
+    table,
     commandRun,
     runInteractive,
     runFromFile,

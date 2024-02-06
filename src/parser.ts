@@ -2,27 +2,37 @@ import { createReadStream } from 'fs';
 import path from 'path';
 import { createInterface } from 'readline';
 import { Command , Direction } from './types';
+import { isValidVector } from './util';
 import type { Vector } from './types';
-import type { Interface } from 'readline';
+import type { ReadStream } from 'fs';
 
 interface parseInputFlags {
   interactive?: boolean;
   file?: string;
 }
 
+export const getReadStream =(flags: parseInputFlags): ReadStream | typeof process.stdin => {
+  const { file = '', interactive = false } = flags;
+  return interactive
+      ? process.stdin
+      : createReadStream(path.resolve(__dirname, file));
+}
+
 export const parseInput = (
   flags: parseInputFlags,
   commandRun: (command: Command, args?: Vector) => void
-): Interface | void => {
-  const { file = '', interactive = false } = flags;
+): void => {
+  const { interactive } = flags;
   const rl = createInterface({
-    input: interactive
-      ? process.stdin
-      : createReadStream(path.resolve(__dirname, file)),
+    input: getReadStream(flags),
+    output: process.stdout,
     prompt: 'toy-robot> ',
+    crlfDelay: Infinity,
+
   });
 
   if (interactive) {
+    rl.setPrompt('toy-robot> ');
     rl.prompt();
   }
 
@@ -34,6 +44,7 @@ export const parseInput = (
       console.debug(`Ignoring '${line.trim()}'`);
     }
     if (interactive) {
+      rl.setPrompt('toy-robot> ');
       rl.prompt();
     }
   });
@@ -49,7 +60,7 @@ export const parseInput = (
   });
 
   if (interactive) {
-    return rl;
+    rl.setPrompt('toy-robot> ');
   }
 };
 
@@ -68,6 +79,7 @@ export const parseCommand = (line: string): ParsedCommand | undefined => {
     if (parsedCommand.command === Command.PLACE && commandAndArgs[1]) {
       parsedCommand.args = parseVector(commandAndArgs[1]);
     }
+    if(!parsedCommand.command) return undefined;
   } catch (error) {
     return undefined;
   }
@@ -86,5 +98,5 @@ export const parseVector = (param: string): Vector | undefined => {
   } catch (error) {
     return undefined;
   }
-  return vector;
+  return isValidVector(vector) ? vector : undefined;
 };

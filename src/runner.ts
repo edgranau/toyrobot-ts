@@ -1,4 +1,5 @@
 import { Command, Direction } from './types';
+import { add, isOnTable } from './util';
 import type { Robot, Table, Vector } from './types';
 
 export const runCommand = (
@@ -114,16 +115,3 @@ export const rightCommand = (robot: Robot, table: Table): void => {
   }
   console.debug(`${JSON.stringify(robot.position)}`);
 };
-
-export const isOnTable = (position: Vector, table: Table): boolean => {
-  return (
-    position.x >= 0 &&
-    position.x < table.dimensions.x &&
-    position.y >= 0 &&
-    position.y < table.dimensions.y &&
-    position.direction !== undefined
-  );
-};
-
-const add = (matrix: number[][]) =>
-  matrix[0].map((num, idx) => num + matrix[1][idx]);

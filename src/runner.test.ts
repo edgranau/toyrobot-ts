@@ -1,5 +1,4 @@
 import {
-  isOnTable,
   leftCommand,
   moveCommand,
   placeCommand,
@@ -175,31 +174,5 @@ describe('rightCommand', () => {
     robot.position = { x: -1, y: 0, direction: Direction.NORTH };
     rightCommand(robot, table);
     expect(robot.position.direction).toBe(Direction.NORTH);
-  });
-});
-
-describe('isOnTable', () => {
-  let table: any;
-
-  beforeEach(() => {
-    table = { dimensions: { x: 5, y: 5 } };
-  });
-
-  test('should return true if the position is on the table', () => {
-    const position = { x: 2, y: 3, direction: Direction.EAST };
-    const result = isOnTable(position, table);
-    expect(result).toBe(true);
-  });
-
-  test('should return false if the position is outside the table', () => {
-    const position = { x: 6, y: 3, direction: Direction.EAST };
-    const result = isOnTable(position, table);
-    expect(result).toBe(false);
-  });
-
-  test('should return false if the position direction is undefined', () => {
-    const position = { x: 2, y: 3, direction: undefined };
-    const result = isOnTable(position, table);
-    expect(result).toBe(false);
   });
 });
